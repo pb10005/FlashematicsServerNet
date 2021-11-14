@@ -13,9 +13,9 @@ namespace FlashematicsServer.Controllers
     [ApiController]
     public class UserItemsController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly DeckContext _context;
 
-        public UserItemsController(UserContext context)
+        public UserItemsController(DeckContext context)
         {
             _context = context;
         }

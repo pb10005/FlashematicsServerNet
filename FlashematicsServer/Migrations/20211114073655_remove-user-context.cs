@@ -4,9 +4,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace FlashematicsServer.Migrations.User
+namespace FlashematicsServer.Migrations
 {
-    public partial class AddUserItem : Migration
+    public partial class removeusercontext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

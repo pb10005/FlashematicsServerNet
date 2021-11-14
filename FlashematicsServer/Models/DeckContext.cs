@@ -11,5 +11,6 @@ namespace FlashematicsServer.Models
         }
 
         public DbSet<DeckItem> DeckItems { get; set; } = null!;
+        public DbSet<UserItem> UserItems { get; set; } = null!;
     }
 }

@@ -1,16 +1,11 @@
 using FlashematicsServer.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 const string PostgresConnStr = "Host=localhost;Port=5432;User Id=user01;Password=user01;Database=flashematics";
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DeckContext>(opt =>
-{
-    opt.UseNpgsql(PostgresConnStr);
-});
-builder.Services.AddDbContext<UserContext>(opt =>
 {
     opt.UseNpgsql(PostgresConnStr);
 });

@@ -84,20 +84,32 @@ namespace FlashematicsServer.Controllers
 
             if (deck == null)
             {
+                deckItem.UpdatedAt = DateTime.Now.ToUniversalTime();
                 // Insert
                 _context.DeckItems.Add(deckItem);
                 await _context.SaveChangesAsync();
 
-                return CreatedAtAction("GetDeckItem", new { id = deckItem.Id }, deckItem);
+                return CreatedAtAction("GetDeckItem", new { name = deckItem.Name }, deckItem);
             }
             else
             {
                 // Update
                 deck.Base64 = deckItem.Base64;
-                _context.Entry(deck).State = EntityState.Modified;
+                var nowDate = DateTime.Now.ToUniversalTime();
+                if (deckItem.UpdatedAt >= deck.UpdatedAt)
+                {
+                    deck.UpdatedAt = nowDate;
+                    _context.Entry(deck).State = EntityState.Modified;
 
-                await _context.SaveChangesAsync();
-                return NoContent();
+                    await _context.SaveChangesAsync();
+                    return AcceptedAtAction("GetDeckItem", new { name = deck.Name }, deck);
+                }
+                else
+                {
+                    var message = string.Format("ERROR: Someone changed the deck on this server after you fetched it." +
+                        "{0}, {1}", deckItem.UpdatedAt,deck.UpdatedAt);
+                    return BadRequest(message);
+                }
             }
 
         }
